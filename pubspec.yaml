@@ -27,6 +27,7 @@ dependencies:
   flutter_placeholder_textlines: ^1.0.4
   flutter_launcher_icons: ^0.7.5
   fluttertoast: ^4.0.0
+  curved_navigation_bar: ^0.3.2
 flutter_icons:
   image_path: "images/logo.png" 
   android: true

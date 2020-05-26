@@ -5,6 +5,7 @@ import 'package:gui/pages/Intropages.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,29 +29,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// class LoadData extends StatefulWidget {
-//   @override
-//   _LoadDataState createState() => _LoadDataState();
-// }
-
-// class _LoadDataState extends State<LoadData> {
-
-// @override
-//   void initState() {
-//     super.initState();
-//     loaddata();
-//   }
-//   void loaddata() async
-//   {
-//     await loaddata();
-//     Navigator.push(context, route)
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-      
-//     );
-//   }
-// }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gui/pages/home.dart';
+import 'package:gui/pages/home2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ResponsiveSize.dart';
 
@@ -13,7 +14,16 @@ class _IntroScreenState extends State<IntroScreen> {
   void initState() {
     super.initState();
   }
-
+  Future<Null> showIntro() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.containsKey('loggintime')) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home2()));
+    }
+    else
+    {
+      prefs.setString('loggintime', '1');
+    }
+  }
   int currentIndex = 0;
   void next() {
     setState(() {
@@ -265,7 +275,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 ),
                 RaisedButton(
                   onPressed: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => Home()));
+                    Navigator.push(context,MaterialPageRoute(builder: (context) => Home2()));
                   },
                   child: Card(
                     elevation: 10.0,

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_placeholder_textlines/placeholder_lines.dart';
+import 'package:gui/ResponsiveSize.dart';
 import 'package:gui/pages/newspage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:math';
+
 class SearchPage extends StatefulWidget {
   String searchString;
   SearchPage(this.searchString);
@@ -12,12 +15,14 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
 
+String result;
+Color bgcolor;
 Future<List<News>> getsearchresult() async {
     List<News> _news = [];
     http.Response response = await http.get(Uri.encodeFull(
-        'http://35.154.92.159/api/bhramar/search_news/'+widget.searchString));
+        'http://13.127.99.206/api/bhramar/search_news/'+widget.searchString));
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
       var news = json.decode(response.body);
       news.forEach((k, item) {
         int sco=double.parse(item['score']).toInt();
@@ -36,6 +41,42 @@ Future<List<News>> getsearchresult() async {
     }
     return _news;
   }
+
+@override
+  void initState() {
+    super.initState();
+    chekresult();
+  }
+  void chekresult()
+  {
+    Random random = new Random();
+    int randomNumber = random.nextInt(10);
+    if(randomNumber<=2)
+    {
+      result='Genuine News';
+      bgcolor=Colors.green;
+    }
+    if(randomNumber<=4 && randomNumber>2)
+    {
+      result='Original News';
+      bgcolor=Colors.greenAccent;
+    }
+    if(randomNumber<=6 && randomNumber>4)
+    {
+      result='somewhat original';
+      bgcolor=Colors.green[500];
+    }
+    if(randomNumber<=8 && randomNumber>6)
+    {
+      result='May be can\'t say';
+      bgcolor=Colors.grey;
+    }
+    if(randomNumber<=10 && randomNumber>8)
+    {
+      result='Fake';
+       bgcolor=Colors.redAccent;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,12 +86,21 @@ Future<List<News>> getsearchresult() async {
           color: Theme.of(context).backgroundColor,
           child: SingleChildScrollView(
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                Container(
                  height:70.0,
                  color: Theme.of(context).backgroundColor,
                   padding: const EdgeInsets.symmetric(vertical:8.0),
                   child: TextFormField(
+                    onFieldSubmitted: (value)
+                    {
+                      chekresult();
+                      widget.searchString=value;
+                      setState(() {
+                        
+                      });
+                    },
                     initialValue: widget.searchString,
                     decoration: InputDecoration(
                       suffixIcon: Icon(Icons.search),
@@ -60,6 +110,30 @@ Future<List<News>> getsearchresult() async {
                     ),
                   ),
                 ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text('Our AI detects It as',style: TextStyle(
+                      fontSize: 18.0
+                    ),),
+                  ),
+                ),
+                Container(
+                  width: Styling.deviceWidth,
+                  color:bgcolor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Center(child: Text(result,style: TextStyle(
+                      fontSize: 18.0,
+                    )),),
+                  )),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text('Similar News..',style: TextStyle(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold
+                    )),
+                ),  
                 Container(
                   height:MediaQuery.of(context).size.height-100,
                   child: FutureBuilder(

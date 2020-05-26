@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gui/pages/myappbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,12 +18,12 @@ class _ContributionState extends State<Contribution> {
 
   Future<void> sendnews() async {
     final prefs = await SharedPreferences.getInstance();
-    int userId = prefs.getInt('user_id');
+    String userId = prefs.getString('user_id');
     http.Response response = await http
-        .post('http://35.154.92.159/api/bhramar/addcontributionnews/', body: {
+        .post('http://13.127.99.206/api/bhramar/addcontributionnews/', body: {
       'news_heading': newsHeading,
       'news_description': newsDescription,
-      'user_id': '$userId',
+      'user_id': userId,
     });
     if (response.statusCode == 200) {
       scaffoldKey.currentState.showSnackBar(
@@ -57,7 +56,7 @@ class _ContributionState extends State<Contribution> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(height: 6*Styling.heightSizeMultiplier),
+                    // SizedBox(height: 6*Styling.heightSizeMultiplier),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30.0),
                       child: Text(

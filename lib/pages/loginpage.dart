@@ -16,26 +16,38 @@ class _MyLoginState extends State<MyLogin> {
   String password;
   int loggingstate = 0;
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> loginKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     Future<void> login() async {
       http.Response response = await http.post(
-          'http://http://35.154.92.159//api/bhramar/login/',
+          'http://13.127.99.206/api/bhramar/login/',
           body: {'email_id': email, 'password': password});
-      if (response.statusCode == 200) {
         print(response.body);
+      if (response.statusCode == 200 && response.body!='0') {
         var userdata=json.decode(response.body);
         final prefs = await SharedPreferences.getInstance();
-        prefs.setInt('user_id', int.parse(userdata[0]['user_id']));
+        prefs.setString('user_id', userdata[0]['user_id']);
         prefs.setString('username',userdata[0]['firstname']);
         Navigator.pop(context);
+        Navigator.pop(context);
       } else {
-        print(response.statusCode);
+        loginKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text('Wrong Credentials'),
+            duration: Duration(seconds: 4),
+          ));
+          setState(() {
+          loggingstate=0;
+            
+          });
       }
     }
 
     return Scaffold(
       appBar: myAppBar(context),
+      key: loginKey,
       body: Container(
         child: SingleChildScrollView(
           child: Form(
@@ -156,11 +168,12 @@ class _SignupState extends State<Signup> {
   String email;
   String password;
   final _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> signupKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     Future<void> signup() async {
       http.Response response =
-          await http.post('http://http://35.154.92.159//api/bhramar/signup/', body: {
+          await http.post('http://13.127.99.206/api/bhramar/signup/', body: {
         'firstname': firstName,
         'lastname': lastName,
         'email_id': email,
@@ -168,15 +181,26 @@ class _SignupState extends State<Signup> {
       });
       if (response.statusCode == 200) {
         var userdata=json.decode(response.body);
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setInt('user_id', int.parse(userdata[0]['user_id']));
-        prefs.setString('username',userdata[0]['firstname']);
-        Navigator.pop(context);
-        Navigator.pop(context);
+        print(response.body);
+        if(response.body=='\"User Already Exists\"')
+        {
+          signupKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text('User Already Exists'),
+            duration: Duration(seconds: 4),
+          ));
+        }
+        else{
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setString('user_id',userdata[0]['user_id']);
+          prefs.setString('username',userdata[0]['firstname']);
+          Navigator.pop(context);
+        }
       }
     }
 
     return Scaffold(
+      key: signupKey,
       appBar: myAppBar(context),
       body: Container(
         width: Styling.deviceWidth,

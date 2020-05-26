@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gui/pages/myappbar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -18,7 +17,7 @@ class _SearchState extends State<Search> {
   Future<List<News>> getnews() async {
     List<News> _news = [];
     http.Response response = await http.get(Uri.encodeFull(
-        'http://35.154.92.159/api/bhramar/getnews/4'));
+        'http://13.127.99.206/api/bhramar/getnews/4'));
     if (response.statusCode == 200) {
       var news = json.decode(response.body);
       news.forEach((k, item) {
@@ -265,7 +264,6 @@ class _SearchState extends State<Search> {
             ),
           ),
         ),
-        appBar:myAppBar(context),
         drawer: Mydrawer(),
       ),
     );

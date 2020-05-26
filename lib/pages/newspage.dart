@@ -35,7 +35,7 @@ class _NewspageState extends State<Newspage> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: Icon(Icons.arrow_back)),
+                        child: Icon(Icons.arrow_back,color: Colors.black)),
                    Container(
                      width:60.0,
                      child: Image.asset('images/Bhramarlogo3.png'),

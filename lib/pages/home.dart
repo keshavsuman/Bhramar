@@ -21,8 +21,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<Widget> cards = [];
   String newsUrl;
-  String baseUrl = 'http://35.154.92.159/api/bhramar/getnews/';
-  String categoryUrl = 'http://35.154.92.159/api/bhramar/getallcategories/';
+  String baseUrl = 'http://13.127.99.206/api/bhramar/getnews/';
+  String categoryUrl = 'http://13.127.99.206/api/bhramar/getallcategories/';
   int _activeindex = 0;
   int loggedin=0;
   int initialbuild=0;
@@ -73,21 +73,21 @@ class _HomeState extends State<Home> {
     isloggedin();
   }
  void isloggedin() async
-{
-  final prefs = await SharedPreferences.getInstance();
-  if(prefs.containsKey('user_id'))
-  {
-    setState(() {
-   loggedin=1;
-    });
-  }
-  else
-  {
-    setState(() {
-  loggedin=0;
-    });
-  }
-}
+    {
+      final prefs = await SharedPreferences.getInstance();
+      if(prefs.containsKey('user_id'))
+      {
+        setState(() {
+      loggedin=1;
+        });
+      }
+      else
+      {
+        setState(() {
+      loggedin=0;
+        });
+      }
+    }
   @override
   Widget build(BuildContext context) {
     return SafeArea(

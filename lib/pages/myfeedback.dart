@@ -20,7 +20,7 @@ class _MyfeedbackState extends State<Myfeedback> {
   {
     final prefs = await SharedPreferences.getInstance();
     int id=prefs.getInt('user_id');
-    http.Response response= await http.post('http://35.154.92.159/api/bhramar/feedback/',
+    http.Response response= await http.post('http://13.127.99.206/api/bhramar/feedback/',
     body: {
         'feedback':feedback,
         'user_id':'$id',
