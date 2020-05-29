@@ -231,6 +231,7 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
                 SizedBox(height: 6*Styling.heightSizeMultiplier),
+                Text('Your credential are not related to any of Gmail account'),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(

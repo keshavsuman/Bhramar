@@ -21,7 +21,7 @@ class _MydrawerState extends State<Mydrawer> {
       });
     else
       setState(() {
-        username = 'Not Loggendin';
+        username = 'Not Logged in';
       });
   }
 

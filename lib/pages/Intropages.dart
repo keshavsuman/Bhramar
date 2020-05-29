@@ -13,6 +13,7 @@ class _IntroScreenState extends State<IntroScreen> {
   @override
   void initState() {
     super.initState();
+    showIntro();
   }
   Future<Null> showIntro() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,7 +59,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 'the Truth!',
                 style: TextStyle(fontSize: 14*Styling.fontSizeMultiplier),
               ),
-              Text('Securedslgdrtjui gifjgdtio hj orgs joit hj posryt;l jk'),
+              // Text('Securedslgdrtjui gifjgdtio hj orgs joit hj posryt;l jk'),
             ],
           ),
           Container(
@@ -145,7 +146,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 'the Facts !',
                 style: TextStyle(fontSize: 14*Styling.fontSizeMultiplier),
               ),
-              Text('Securedslgdrtjui gifjgdtio hj orgs joit hj posryt;l jk'),
+              // Text('Securedslgdrtjui gifjgdtio hj orgs joit hj posryt;l jk'),
             ],
           ),
           Container(
@@ -232,7 +233,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 'For Betterment',
                 style: TextStyle(fontSize: 14*Styling.fontSizeMultiplier),
               ),
-              Text('Securedslgdrtjui gifjgdtio hj orgs joit hj posryt;l jk'),
+              // Text('Securedslgdrtjui gifjgdtio hj orgs joit hj posryt;l jk'),
             ],
           ),
 

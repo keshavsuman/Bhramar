@@ -8,6 +8,8 @@ import 'dart:math';
 
 class SearchPage extends StatefulWidget {
   String searchString;
+Map<String,dynamic> searches={};
+String result;
   SearchPage(this.searchString);
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -15,14 +17,21 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
 
-String result;
 Color bgcolor;
 Future<List<News>> getsearchresult() async {
+  if(widget.searches.containsKey(widget.searchString))
+  {
+    widget.result=widget.searches[widget.searchString];
+  }
+  else
+  {
+    widget.searches[widget.searchString]=widget.result;
+  }
+  print(widget.searches);
     List<News> _news = [];
     http.Response response = await http.get(Uri.encodeFull(
         'http://13.127.99.206/api/bhramar/search_news/'+widget.searchString));
-    if (response.statusCode == 200) {
-      // print(response.body);
+    if (response.statusCode == 200){
       var news = json.decode(response.body);
       news.forEach((k, item) {
         int sco=double.parse(item['score']).toInt();
@@ -51,30 +60,20 @@ Future<List<News>> getsearchresult() async {
   {
     Random random = new Random();
     int randomNumber = random.nextInt(10);
-    if(randomNumber<=2)
+    if(randomNumber<=3)
     {
-      result='Genuine News';
+      widget.result='The news articles seems unreal to us';
       bgcolor=Colors.green;
     }
-    if(randomNumber<=4 && randomNumber>2)
+    if(randomNumber<=6 && randomNumber>3)
     {
-      result='Original News';
+      widget.result='News Is partially true according to us Do you have something which is fake contribute';
       bgcolor=Colors.greenAccent;
     }
-    if(randomNumber<=6 && randomNumber>4)
+    if(randomNumber<=10 && randomNumber>6)
     {
-      result='somewhat original';
+      widget.result='Entered news is not in our database We would love if you can contribute..';
       bgcolor=Colors.green[500];
-    }
-    if(randomNumber<=8 && randomNumber>6)
-    {
-      result='May be can\'t say';
-      bgcolor=Colors.grey;
-    }
-    if(randomNumber<=10 && randomNumber>8)
-    {
-      result='Fake';
-       bgcolor=Colors.redAccent;
     }
   }
   @override
@@ -96,9 +95,8 @@ Future<List<News>> getsearchresult() async {
                     onFieldSubmitted: (value)
                     {
                       chekresult();
-                      widget.searchString=value;
                       setState(() {
-                        
+                      widget.searchString=value;
                       });
                     },
                     initialValue: widget.searchString,
@@ -123,7 +121,7 @@ Future<List<News>> getsearchresult() async {
                   color:bgcolor,
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Center(child: Text(result,style: TextStyle(
+                    child: Center(child: Text(widget.result,style: TextStyle(
                       fontSize: 18.0,
                     )),),
                   )),

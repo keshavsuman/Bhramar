@@ -113,6 +113,17 @@ class _MyfeedbackState extends State<Myfeedback> {
   }
 }
 class Aboutus extends StatefulWidget {
+  String wif='''Bhramar- Searching for Truth 
+
+Everyone is Forwarding News on Whatsapp & Facebook Blindly but do any one has idea what blunder that forwarded  news can create  
+
+
+Since its widespread use internet has now become a major source for news. But irrespective of its extensive reach there is no reliable source to validate the information, which ultimately is leading to misinformation and hoaxes among people. So in order to create awareness among the people so that they are not misguided by fake information, we had created a platform where just by pasting any news user will get to know authenticity of it.
+
+
+User's can also contribute from their side by providing news to Bhramar 
+They just need to Enter Their name & Email & user's get enrolled to Bhramar & now they are part of our team they can also contribute by Giving verified news to Bhramar.
+User's can always suggest & comment on the provided news, user can directly give Feedback to team Bhramar.''';
   @override
   _AboutusState createState() => _AboutusState();
 }
@@ -122,19 +133,18 @@ class _AboutusState extends State<Aboutus> {
   Widget build(BuildContext context) {
     return SafeArea(
       child:Scaffold(
+        appBar: myAppBar(context),
         body: Container(
           width:Styling.deviceWidth,
           child:Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-//            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(height:10*Styling.heightSizeMultiplier),
-              Container(
-                width:Styling.deviceWidth/3,
-                child: Image.asset(Styling.logo),
-              ),
-              SizedBox(height:10*Styling.heightSizeMultiplier),
-              Text('We provide information about Fake news'),
+              Text('About us',style:TextStyle(
+                fontSize: 50.0,
+              ),),
+              SizedBox(height:5*Styling.heightSizeMultiplier),
+              Text(widget.wif),
             ],
           )
         ),
